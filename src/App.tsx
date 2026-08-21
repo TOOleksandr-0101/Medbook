@@ -29,6 +29,7 @@ const doctors = [
 function App() {
   const [search, setSearch] = useState('');
   const [availableOnly, setAvailableOnly] = useState(false)
+  const [bookedDoctorId, setBookedDoctorId] = useState<number | null>(null)
 
   return (
     <div>
@@ -58,9 +59,13 @@ function App() {
               <h2>{doctor.name}</h2>
               <p>{doctor.specialty}</p>
               <p>{doctor.available ? 'Available' : 'Not Available'}</p>
+              <p>{bookedDoctorId === doctor.id ? 'Booked' : doctor.available ? 'Available' : 'Not Available'} </p>
 
-              <button disabled={!doctor.available}>
-                Book
+              <button 
+                disabled={!doctor.available} 
+                onClick={() => setBookedDoctorId(doctor.id)}
+              >
+                {bookedDoctorId === doctor.id ? 'Booked' : 'Book'}
               </button>
             </div>
             ))}
