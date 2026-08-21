@@ -28,26 +28,41 @@ const doctors = [
 
 function App() {
   const [search, setSearch] = useState('');
+  const [availableOnly, setAvailableOnly] = useState(false)
 
   return (
     <div>
       <h1>MedBook</h1>
       <p>Find and book a doctor</p>
+    <input
+      type="text"
+      placeholder="Search doctor"
+      value={search}
+      onChange={(event) => setSearch(event.target.value)}
+    />
+    <label>
       <input
-    type="text"
-    placeholder="Search doctor"
-    value={search}
-    onChange={(event) => setSearch(event.target.value)}
-  />
+        type="checkbox"
+        checked={availableOnly}
+        onChange={(event) => setAvailableOnly(event.target.checked)}
+      />
+      Available Only
+    </label>
     {doctors
             .filter((doctor) =>
-              doctor.name.toLowerCase().includes(search.toLowerCase())
+              doctor.name.toLowerCase().includes(search.toLowerCase()) &&
+              (!availableOnly || doctor.available)
             )
             .map((doctor) => (
-              <p key={doctor.id}>
-                {doctor.name} - {doctor.specialty} -{' '}
-                {doctor.available ? 'Available' : 'Not Available'}
-              </p>
+            <div key={doctor.id} className="doctor-card">
+              <h2>{doctor.name}</h2>
+              <p>{doctor.specialty}</p>
+              <p>{doctor.available ? 'Available' : 'Not Available'}</p>
+
+              <button disabled={!doctor.available}>
+                Book
+              </button>
+            </div>
             ))}
     </div>
   );
