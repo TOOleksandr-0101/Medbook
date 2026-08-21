@@ -33,6 +33,12 @@ function App() {
     <div>
       <h1>MedBook</h1>
       <p>Find and book a doctor</p>
+      <input
+    type="text"
+    placeholder="Search doctor"
+    value={search}
+    onChange={(event) => setSearch(event.target.value)}
+  />
     {doctors
             .filter((doctor) =>
               doctor.name.toLowerCase().includes(search.toLowerCase())
