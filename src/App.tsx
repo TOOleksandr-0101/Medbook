@@ -50,7 +50,7 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage doctors={doctors} />} />
         <Route
           path="/doctors"
           element={<DoctorsPage doctors={doctors} />}
