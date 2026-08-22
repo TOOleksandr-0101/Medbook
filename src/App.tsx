@@ -18,7 +18,7 @@ import './App.css'
 const initialDoctors: Doctor[] = [
   {
     id: 1,
-    name: 'Dr. Anna',
+    name: 'Dr. Aоnna',
     specialty: 'Cardiologist',
     available: true,
   },

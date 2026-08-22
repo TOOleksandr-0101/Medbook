@@ -30,7 +30,7 @@ function ManageDoctorsPage({
     setAvailable(doctor.available)
   }
 
-  const handleAddDoctor = () => {
+  const addDoctor = () => {
     const trimmedName = name.trim()
     const trimmedSpecialty = specialty.trim()
 
@@ -77,54 +77,89 @@ function ManageDoctorsPage({
   }
 
   return (
-    <div>
-      <h1>Manage Doctors</h1>
-      <p>Add, edit and remove doctors</p>
+    <div className="page">
+      <div className="page-header">
+        <div>
+          <h1>Manage doctors</h1>
+          <p>Add, edit and remove doctors</p>
+        </div>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Doctor name"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
+      <div className="manage-form">
+        <div>
+          <label>Doctor name</label>
+          <input
+            type="text"
+            placeholder="Dr. Smith"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
 
-      <input
-        type="text"
-        placeholder="Specialty"
-        value={specialty}
-        onChange={(event) => setSpecialty(event.target.value)}
-      />
+        <div>
+          <label>Specialty</label>
+          <input
+            type="text"
+            placeholder="Cardiologist"
+            value={specialty}
+            onChange={(event) => setSpecialty(event.target.value)}
+          />
+        </div>
 
-      <label>
-        <input
-          type="checkbox"
-          checked={available}
-          onChange={(event) => setAvailable(event.target.checked)}
-        />
-        Available
-      </label>
+        <label className="checkbox-row">
+          <input
+            type="checkbox"
+            checked={available}
+            onChange={(event) => setAvailable(event.target.checked)}
+          />
+          Available
+        </label>
 
-      <button
-        type="button"
-        onClick={editingDoctorId === null ? handleAddDoctor : saveDoctor}
-      >
-        {editingDoctorId === null ? 'Add doctor' : 'Save changes'}
-      </button>
+        <button
+          type="button"
+          className="primary-button"
+          onClick={editingDoctorId === null ? addDoctor : saveDoctor}
+        >
+          {editingDoctorId === null ? 'Add doctor' : 'Save changes'}
+        </button>
+      </div>
 
-      <ul>
+      <div className="doctors-table">
+        <div className="manage-table-row table-head">
+          <span>Name</span>
+          <span>Specialty</span>
+          <span>Available</span>
+          <span>Actions</span>
+        </div>
+
         {doctors.map((doctor) => (
-          <li key={doctor.id}>
-            {doctor.name} - {doctor.specialty} -{' '}
-            {doctor.available ? 'Available' : 'Not Available'}
-            <button type="button" onClick={() => deleteDoctor(doctor.id)}>
-              Delete
-            </button>
-            <button type="button" onClick={() => startEditDoctor(doctor)}>
-              Edit
-            </button>
-          </li>
+          <div className="manage-table-row" key={doctor.id}>
+            <span className="doctor-name">{doctor.name}</span>
+
+            <span>{doctor.specialty}</span>
+
+            <span>{doctor.available ? 'Yes' : 'No'}</span>
+
+            <span className="table-actions">
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => startEditDoctor(doctor)}
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
+                className="text-button delete-button"
+                onClick={() => deleteDoctor(doctor.id)}
+              >
+                Delete
+              </button>
+            </span>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
