@@ -14,6 +14,21 @@ function ManageDoctorsPage({
   const [name, setName] = useState('')
   const [specialty, setSpecialty] = useState('')
   const [available, setAvailable] = useState(true)
+  const [editingDoctorId, setEditingDoctorId] = useState<number | null>(null)
+
+  const resetForm = () => {
+    setEditingDoctorId(null)
+    setName('')
+    setSpecialty('')
+    setAvailable(true)
+  }
+
+  const startEditDoctor = (doctor: Doctor) => {
+    setEditingDoctorId(doctor.id)
+    setName(doctor.name)
+    setSpecialty(doctor.specialty)
+    setAvailable(doctor.available)
+  }
 
   const handleAddDoctor = () => {
     const trimmedName = name.trim()
@@ -31,9 +46,28 @@ function ManageDoctorsPage({
     }
 
     setDoctors((currentDoctors) => [...currentDoctors, newDoctor])
-    setName('')
-    setSpecialty('')
-    setAvailable(true)
+    resetForm()
+  }
+
+  const saveDoctor = () => {
+    if (editingDoctorId === null) {
+      return
+    }
+
+    setDoctors((currentDoctors) =>
+      currentDoctors.map((doctor) =>
+        doctor.id === editingDoctorId
+          ? {
+              ...doctor,
+              name,
+              specialty,
+              available,
+            }
+          : doctor,
+      ),
+    )
+
+    resetForm()
   }
 
   const deleteDoctor = (id: number) => {
@@ -70,8 +104,11 @@ function ManageDoctorsPage({
         Available
       </label>
 
-      <button type="button" onClick={handleAddDoctor}>
-        Add doctor
+      <button
+        type="button"
+        onClick={editingDoctorId === null ? handleAddDoctor : saveDoctor}
+      >
+        {editingDoctorId === null ? 'Add doctor' : 'Save changes'}
       </button>
 
       <ul>
@@ -81,6 +118,9 @@ function ManageDoctorsPage({
             {doctor.available ? 'Available' : 'Not Available'}
             <button type="button" onClick={() => deleteDoctor(doctor.id)}>
               Delete
+            </button>
+            <button type="button" onClick={() => startEditDoctor(doctor)}>
+              Edit
             </button>
           </li>
         ))}
