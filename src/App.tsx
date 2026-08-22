@@ -5,6 +5,9 @@ import {
   Link,
 } from 'react-router-dom'
 
+import { useState } from 'react'
+import type { Doctor } from './types/Doctor'
+
 import HomePage from './pages/HomePage'
 import DoctorsPage from './pages/DoctorsPage'
 import ManageDoctorsPage from './pages/ManageDoctorsPage'
@@ -12,7 +15,29 @@ import ProfilePage from './pages/ProfilePage'
 
 import './App.css'
 
+const initialDoctors: Doctor[] = [
+  {
+    id: 1,
+    name: 'Dr. Anna',
+    specialty: 'Cardiologist',
+    available: true,
+  },
+  {
+    id: 2,
+    name: 'Dr. Max',
+    specialty: 'Neurologist',
+    available: false,
+  },
+  {
+    id: 3,
+    name: 'Dr. John',
+    specialty: 'Surgeon',
+    available: true,
+  },
+]
+
 function App() {
+  const [doctors, setDoctors] = useState<Doctor[]>(initialDoctors)
   return (
     <BrowserRouter>
       <nav>
@@ -26,10 +51,18 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/doctors" element={<DoctorsPage />} />
+        <Route
+          path="/doctors"
+          element={<DoctorsPage doctors={doctors} />}
+        />
         <Route
           path="/manage-doctors"
-          element={<ManageDoctorsPage />}
+          element={
+            <ManageDoctorsPage
+              doctors={doctors}
+              setDoctors={setDoctors}
+            />
+          }
         />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>

@@ -1,27 +1,12 @@
 import { useState } from 'react'
 
-const doctors = [
-  {
-    id: 1,
-    name: 'Dr. Anna',
-    specialty: 'Cardiologist',
-    available: true,
-  },
-  {
-    id: 2,
-    name: 'Dr. Max',
-    specialty: 'Neurologist',
-    available: false,
-  },
-  {
-    id: 3,
-    name: 'Dr. John',
-    specialty: 'Surgeon',
-    available: true,
-  },
-]
+import type { Doctor } from '../types/Doctor'
 
-function DoctorsPage() {
+interface DoctorsPageProps {
+  doctors: Doctor[]
+}
+
+function DoctorsPage({ doctors }: DoctorsPageProps) {
   const [search, setSearch] = useState('')
   const [availableOnly, setAvailableOnly] = useState(false)
   const [bookedDoctorId, setBookedDoctorId] = useState<number | null>(null)
