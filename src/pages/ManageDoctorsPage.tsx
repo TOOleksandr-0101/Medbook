@@ -2,8 +2,6 @@ import { useState } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 import type { Doctor } from '../types/Doctor'
 
-import { Pencil, Trash2 } from 'lucide-react'
-
 interface ManageDoctorsPageProps {
   doctors: Doctor[]
   setDoctors: Dispatch<SetStateAction<Doctor[]>>

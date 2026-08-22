@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -54,7 +49,7 @@ function App() {
   }, [doctors])
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <nav className="navbar">
         <strong className="navbar-brand">MedBook</strong>
 
@@ -98,7 +93,7 @@ function App() {
         />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
