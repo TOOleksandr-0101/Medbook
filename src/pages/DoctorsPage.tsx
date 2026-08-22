@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import type { Doctor } from '../types/Doctor'
 
@@ -9,7 +9,23 @@ interface DoctorsPageProps {
 function DoctorsPage({ doctors }: DoctorsPageProps) {
   const [search, setSearch] = useState('')
   const [availableOnly, setAvailableOnly] = useState(false)
-  const [bookedDoctorId, setBookedDoctorId] = useState<number | null>(null)
+  const [bookedDoctorId, setBookedDoctorId] = useState<number | null>(() => {
+    const savedBookedDoctorId = localStorage.getItem('bookedDoctorId')
+
+    if (savedBookedDoctorId) {
+      return Number(savedBookedDoctorId)
+    }
+
+    return null
+  })
+
+  useEffect(() => {
+    if (bookedDoctorId !== null) {
+      localStorage.setItem('bookedDoctorId', String(bookedDoctorId))
+    } else {
+      localStorage.removeItem('bookedDoctorId')
+    }
+  }, [bookedDoctorId])
 
   const filteredDoctors = doctors
     .filter((doctor) =>

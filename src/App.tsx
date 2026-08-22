@@ -9,6 +9,8 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import type { Doctor } from './types/Doctor'
 
+import { Home, Stethoscope, Settings, User } from 'lucide-react'
+
 import HomePage from './pages/HomePage'
 import DoctorsPage from './pages/DoctorsPage'
 import ManageDoctorsPage from './pages/ManageDoctorsPage'
@@ -53,13 +55,30 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav>
-        <strong>MedBook</strong>
+      <nav className="navbar">
+        <strong className="navbar-brand">MedBook</strong>
 
-        <Link to="/">Home</Link>
-        <Link to="/doctors">Doctors</Link>
-        <Link to="/manage-doctors">Manage</Link>
-        <Link to="/profile">Profile</Link>
+        <div className="nav-links">
+          <Link to="/" className="nav-link">
+            <Home size={16} />
+            Home
+          </Link>
+
+          <Link to="/doctors" className="nav-link">
+            <Stethoscope size={16} />
+            Doctors
+          </Link>
+
+          <Link to="/manage-doctors" className="nav-link">
+            <Settings size={16} />
+            Manage
+          </Link>
+
+          <Link to="/profile" className="nav-link">
+            <User size={16} />
+            Profile
+          </Link>
+        </div>
       </nav>
 
       <Routes>

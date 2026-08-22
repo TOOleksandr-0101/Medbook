@@ -149,7 +149,13 @@ nav a:hover {
   background: white;
   color: #202124;
 }
-
+.edit-button {
+  color: #afe117;
+}
+.delete-button {
+  color: white;
+  background: #b42318;
+}
 .toolbar input[type="text"] {
   width: 320px;
   height: 38px;

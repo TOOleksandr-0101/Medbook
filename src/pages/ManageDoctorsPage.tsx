@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 import type { Doctor } from '../types/Doctor'
 
+import { Pencil, Trash2 } from 'lucide-react'
+
 interface ManageDoctorsPageProps {
   doctors: Doctor[]
   setDoctors: Dispatch<SetStateAction<Doctor[]>>
@@ -143,7 +145,7 @@ function ManageDoctorsPage({
             <span className="table-actions">
               <button
                 type="button"
-                className="text-button"
+                className="edit-button"
                 onClick={() => startEditDoctor(doctor)}
               >
                 Edit
@@ -151,7 +153,7 @@ function ManageDoctorsPage({
 
               <button
                 type="button"
-                className="text-button delete-button"
+                className="delete-button"
                 onClick={() => deleteDoctor(doctor.id)}
               >
                 Delete
