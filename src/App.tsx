@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import { useState } from 'react'
+import { useEffect } from 'react'
 import type { Doctor } from './types/Doctor'
 
 import HomePage from './pages/HomePage'
@@ -37,7 +38,19 @@ const initialDoctors: Doctor[] = [
 ]
 
 function App() {
-  const [doctors, setDoctors] = useState<Doctor[]>(initialDoctors)
+  const [doctors, setDoctors] = useState<Doctor[]>(() => {
+  const savedDoctors = localStorage.getItem('doctors')
+
+  if (savedDoctors) {
+    return JSON.parse(savedDoctors)
+  }
+
+  return initialDoctors
+})
+  useEffect(() => {
+    localStorage.setItem('doctors', JSON.stringify(doctors))
+  }, [doctors])
+
   return (
     <BrowserRouter>
       <nav>
